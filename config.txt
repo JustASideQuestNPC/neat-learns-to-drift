@@ -1,0 +1,80 @@
+[CAR] # Many of these variables have specified ranges, but the program DOES NOT enforce them. Setting a variable to a value outside the recommended range voids your warranty.
+
+    [[CONTROL]]  # Constants for control and basic physics.
+    MAX_SPEED = 4           # Maximum forward speed.
+    TURN_SPEED_MULT = 0.25  # Adjusts maximum speed as angle delta increases during a turn. Maximum speed is directly multiplied by this value at maximum intensity
+    SPEED_START_DELTA = 15  # Angle delta at which speed adjustment engages. Speed adjustment scales linearly between the minimum and maximum values.
+    SPEED_END_DELTA = 90    # Angle delta at which speed adjustment reaches maximum intensity.
+    ACCELERATION = 0.2      # Maximum forward acceleration.
+    BRAKING_FORCE = 0.3     # Maximum rearward braking force.
+    FRICTION = 0.015        # Friction is applied when the car is neither accelerating nor braking.
+
+    [[STEERING]]
+    STEERING_RESPONSE = 3.5     # Maximum steering intensity in degrees.
+    TURN_STEERING_MULT = 1     # Adjusts steering response as angle delta increases during a turn. Steering response is directly multiplied by this value at maximum intensity
+    STEERING_START_DELTA = 15  # Angle delta at which steering adjustment engages. Steering adjustment scales linearly between the minimum and maximum values.
+    STEERING_END_DELTA = 90    # Angle delta at which steering adjustment reaches maximum intensity.
+
+    [[PHYSICS]] # Constants for the (excessively) complex drift physics.
+                # "Angle delta" refers to how far apart the velocity vector and the car's facing angle are (in degrees).
+    SNAP_THRESHOLD = 0.1  # If the angle delta is less than this, turning calculations are skipped and the velocity vector snaps to the facing angle.
+    MAX_DELTA = 60        # If the angle delta is greater than this after turning, the velocity vector is snapped so that the angle delta equals this.
+    NO_OVERSHOOT = True   # If this is true, turns that overshoot the facing angle (turning amount > angle delta) will stop at the facing angle.
+    MIN_GRIP = 0.1        # Minimum possible rotation of the velocity vector.
+    MAX_GRIP = -1         # Maximum possible rotation of the velocity vector. Set to -1 to disable the limit.
+    POINT_SCALAR = 1.5    # Determines how high the angle delta must become before grip begins to increase. Higher values cause a higher delay.
+    GRIP_EXP = 1.3        # Determines how "tight" the grip curve is, which determines how quickly grip increases during a turn. Lower values cause a slower, more gradual increase, while higher values cause a more rapid "snap". Setting this to 0 or below WILL crash the program.
+
+    [[DISPLAY]] # Constants for how the car is displayed.
+    WIDTH = 10                  # Distance between the left and right sides of the car.
+    LENGTH = 20                 # Distance between the front and back of the car.
+    BODY_COLOR = "(255, 0, 0)"  # Car body color.
+
+    [[DEBUG]] # Constants for debugging.
+    VECTOR_DEBUG = False            # Enables vector debug mode, which displays the velocity vector and facing angle.
+    VELOCITY_COLOR = "(0, 255, 0)"  # Velocity vector color.
+    FACING_COLOR = "(0, 0, 255)"    # Facing angle color.
+    LINE_WIDTH = 2                  # Width of the vector lines.
+    DEBUG_TEXT = False              # Displays debug info in the corner of the screen.
+
+[AI_TRAINING] # Used for AI training and fitness assignment. NOT the config for the AI itself.
+    MIN_MOVE_AMOUNT = 0.5            # If the AI hasn't moved at least this much since the last update, it is killed.
+    SPAWN_VELOCITY = 4               # Initial forward velocity that AI cars spawn with.
+    CHANGE_TRACKS = True             # Cycles through the stored tracks during training. May result in a "smarter" AI, at the cost of increased training time.
+    GENERATIONS_PER_TRACK = 1        # When track cycling is enabled, the track will change after this many generations.
+    NUM_GENERATIONS = 50             # Maximum number of AI generations.
+    DEATH_PENALTY = 5                # Amount an AI's fitness is reduced by if it crashes into the track borders.
+    CHECKPOINT_SCORE = 5             # Amount an AI's fitness is increased by if it reaches a new checkpoint.
+    CHECKPOINT_ADVANCE_SCORE = 0.5   # Whenever an AI gets closer to a checkpoint, its score is increased by this value multiplied by how much closer it is.
+    MAX_TIME_MULTIPLIER = 2          # AIs gain increased fitness from checkpoints based on how fast they reach them. The multiplier decreases linearly over time to 1 and resets each time a checkpoint is passed.
+    TIME_MULTIPLIER_DECAY = 1        # The time multiplier decreases by this amount every second, to a minimum of 1.
+    STEERING_SNAP = 0.5              # If the AI gives a steering value above the snap, its car turns to the right. If it gives a steering value below the negative snap, its car turns to the left.
+    THROTTLE_SNAP = 0.5              # If the AI gives a throttle value above the snap, its car accelerates. If it gives a throttle value below the negative snap, its car brakes.
+    ALLOW_BRAKING = False            # If false, the AI can only choose whether or not to accelerate its car. If true, it can also apply the brakes as a third option. Results in more "realistic" driving at the cost of greatly increased training time.
+
+[RAYCASTING] # Used for raycasts. Mostly unimportant.
+    CAST_LENGTH = 10000                # Shapely (the library I use for raycasts) doesn't support infinitely long rays, so I just make the ray arbitrarily long instead.
+    TRUNCATE_RAY = True                # If True, will only display the segment of the ray between the origin and the intersection point.
+    RAY_COLOR = "(0, 255, 0)"          # Display color of the ray.
+    RAY_WIDTH = 1                      # Width of the ray (only applies when displayed; the actual ray is 1-dimensional and has no width).
+    SHOW_INTERSECTION = True           # If True, draws a circle at the point where the ray collides with the geometry.
+    INTERSECT_RADIUS = 3               # Radius of the intersection circle.
+    INTERSECT_COLOR = "(0, 0, 255)"    # Color of the intersection circle.
+    SHOW_DISTANCE = False              # If True, displays the distance to the intersection next to the intersection point.
+    DISTANCE_DECIMALS = 2              # When displaying distance, rounds to this many decimals.
+
+[TRACKS] # Really just display colors and debug stuff, so probably not worth modifiying.
+    LINE_WIDTH = 3                               # Width of all lines.
+    SHOW_CHECKPOINTS = False                     # Displays checkpoints and finish line.
+    SHOW_COLLISIONS = False                      # Changes the color of lines while a car is colliding with them
+    BORDER_COLOR = "(255, 255, 255)"             # Track border color.
+    BORDER_COLLIDE_COLOR = "(0, 0, 255)"         # Track border color when a car is colliding with it.
+    CHECKPOINT_COLOR = "(255, 0, 0)"             # Checkpoint line color.
+    CHECKPOINT_COLLIDE_COLOR = "(255, 0, 255)"   # Checkpoint line color when a car is colliding with it.
+    FINISH_LINE_COLOR = "(0, 255, 0)"            # Finish line color.
+    FINISH_LINE_COLLIDE_COLOR = "(0, 255, 255)"  # Finish line color when a car is colliding with it.
+
+[GAME] # Again, really just display colors and debug stuff.
+    SHOW_RAYS = False                  # Whether to show raycasts from cars.
+    BACKGROUND_COLOR = "(60, 60, 60)"  # Window background color.
+    TEXT_COLOR = "(255, 255, 255)"     # Default text color.
