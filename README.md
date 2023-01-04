@@ -26,3 +26,5 @@ If you want to run this yourself, you'll need the latest version of python (obvi
  ### The Config Files
  
  There are two config files in here: `config.txt` and `neat_config.txt`. `neat_config.txt` is the config for the NEAT algorithm. Don't touch it unless you know what you're doing. `config.txt` is the config file for everything else - car physics, AI training, display colors, *everything*. I've done my best to explain what each item inside it does, and I encourage you to mess with it!
+
+PS: Both accounts making commits to this (AllTheNamesAreTaken and JustASideQuestNPC) are mine. AllTheNamesAreTaken is my personal one and JustASideQuestNPC is my "professional" one, and I've had some issues getting VS Code to use the correct one. Sorry :/
