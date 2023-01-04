@@ -40,7 +40,7 @@
 [AI_TRAINING] # Used for AI training and fitness assignment. NOT the config for the AI itself.
     MIN_MOVE_AMOUNT = 0.5            # If the AI hasn't moved at least this much since the last update, it is killed.
     SPAWN_VELOCITY = 4               # Initial forward velocity that AI cars spawn with.
-    CHANGE_TRACKS = True             # Cycles through the stored tracks during training. May result in a "smarter" AI, at the cost of increased training time.
+    CHANGE_TRACKS = False            # Cycles through the stored tracks during training. May result in a "smarter" AI, at the cost of increased training time.
     GENERATIONS_PER_TRACK = 1        # When track cycling is enabled, the track will change after this many generations.
     NUM_GENERATIONS = 50             # Maximum number of AI generations.
     DEATH_PENALTY = 5                # Amount an AI's fitness is reduced by if it crashes into the track borders.
